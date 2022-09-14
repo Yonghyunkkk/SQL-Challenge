@@ -1,0 +1,13 @@
+SELECT
+	customer_id,
+	COUNT(Visits.visit_id) AS count_no_trans
+FROM
+	visits
+LEFT JOIN Transactions
+	ON Visits.visit_id = Transactions.visit_id
+WHERE 
+	Transactions.visit_id IS NULL
+GROUP BY customer_id
+
+# Visits.visit_id IS NULL 이 아닌 Transactions.visit_id를 하는 이유는 left join 이기 때문에 Visits.visit_id는 모두 테이블에 저장이 될 것이다.
+하지만, Transactions.visit_id는 Visits.visits_id 와 매치하지 않을 경우 NULL로 표기되어 있을 것이다. 
